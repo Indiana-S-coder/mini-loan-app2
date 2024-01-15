@@ -31,31 +31,40 @@ const CreateLoan = () => {
   };
 
   return (
-    <div className="CreateLoan">
-      <div>
-        <h2>Loan Application Form</h2>
-        <form onSubmit={handleFormSubmit}>
-          <label>
-            Amount:
+    <div className="flex justify-center mt-28">
+      <div className="flex flex-col items-center justify-center bg-slate-50 rounded-lg p-9 shadow-md">
+        <h2 className="font-bold text-2xl text-slate-600 pb-10">Apply for Loan</h2>
+        <form className="space-y-4" onSubmit={handleFormSubmit}>
+          <div className="flex flex-col items-start">
+            <label className="block text-sm font-medium text-gray-600">
+              Loan Amount:
+            </label>
             <input
+              placeholder="Amount"
               type="number"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              required
+              className="mt-1 p-2 w-full border border-gray-300 rounded focus:outline-none focus:border-red-500"
             />
-          </label>
-          <br />
-          <label>
-            Terms:
+          </div>
+          <div className="flex flex-col items-start">
+            <label className="block text-sm font-medium text-gray-600">
+              Loan Term(in weeks):
+            </label>
             <input
+            placeholder="Term"
               type="number"
               value={term}
               onChange={(e) => setTerm(e.target.value)}
-              required
+              className="mt-1 p-2 w-full border border-gray-300 rounded focus:outline-none focus:border-red-500"
             />
-          </label>
-          <br />
-          <button type="submit">Submit</button>
+          </div>
+          <button
+            type="submit"
+            className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 focus:outline-none focus:border-red-700 focus:ring focus:ring-red-200"
+          >
+            Apply
+          </button>
         </form>
       </div>
     </div>

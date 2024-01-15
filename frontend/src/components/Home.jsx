@@ -92,7 +92,7 @@ const Home = () => {
         </div>
       ) : (
         <div>
-          {user && <h3 className="text-2xl font-bold"> Name: {user.name}</h3>}
+          {user && <h3 className="text-2xl text-blue-500 font-bold"> Name: {user.name}</h3>}
           {user && <h3 className="text-2xl font-bold"> Email: {user.email}</h3>}
         </div>
       )}
