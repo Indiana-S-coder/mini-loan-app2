@@ -1,0 +1,22 @@
+# Node.js
+node_modules/
+
+# Build files
+build/
+dist/
+
+# Environment variables
+.env
+.env.local
+
+# Logs
+logs/
+*.log
+
+# Editor specific files
+.vscode/
+.idea/
+
+# Dependency directories
+pnpm-lock.yaml
+yarn.lock
