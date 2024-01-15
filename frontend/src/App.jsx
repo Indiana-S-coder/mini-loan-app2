@@ -1,35 +1,91 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { createContext, useEffect, useState } from "react";
+import "./App.css";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import Home from "./components/Home";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import CreateLoan from "./components/CreateLoan";
+import axios from "axios";
+
+export const AuthContext = createContext();
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [user, setUser] = useState();
+  const [token, setToken] = useState();
+
+  const navigate = (path) => {
+    window.location.pathname = path;
+  };
+
+  const fetchUser = async (token) => {
+    try {
+      console.log(token);
+      const userDetails = await axios.get(
+        "http://localhost:4000/api/v1/auth/",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            bearertoken: token,
+          },
+        }
+      );
+      if (!userDetails.data) throw "No user found";
+      setUser(userDetails.data.user);
+      setToken(token);
+      setLoggedIn(true);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    fetchUser(token);
+  }, []);
+  const ProtectedRoutes = ({ component }) => {
+    return <>{isLoggedIn ? component : <Login />}</>;
+  };
+
+  const UnProtectedRoutes = ({ component }) => {
+    return <>{!isLoggedIn ? component : <Home />}</>;
+  };
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <ProtectedRoutes component={<Home />} />,
+    },
+    {
+      path: "/login",
+      element: <UnProtectedRoutes component={<Login />} />,
+    },
+    {
+      path: "/signup",
+      element: <UnProtectedRoutes component={<Signup />} />,
+    },
+    {
+      path: "/createLoan",
+      element: <ProtectedRoutes component={<CreateLoan />} />,
+    },
+  ]);
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <AuthContext.Provider
+        value={{
+          isLoggedIn,
+          setLoggedIn,
+          user,
+          setUser,
+          token,
+          setToken,
+        }}
+      >
+        <RouterProvider router={router} />
+      </AuthContext.Provider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

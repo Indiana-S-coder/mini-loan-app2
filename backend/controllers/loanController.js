@@ -1,12 +1,12 @@
-const Loan = require("../models/loan.js");
+const Loans = require("../models/loans.js");
 
 exports.getLoans = async (req, res) => {
   try {
     let loans;
     if (req.user.user_type === "admin") {
-      loans = await Loan.find().populate("user_id");
+      loans = await Loans.find().populate("user_id");
     } else {
-      loans = await Loan.find({ user_id: req.user._id });
+      loans = await Loans.find({ user_id: req.user._id });
     }
     return res.status(200).json({ Loans: loans });
   } catch (error) {
@@ -18,10 +18,10 @@ exports.getLoans = async (req, res) => {
 exports.createLoan = async (req, res) => {
   try {
     const { amount, terms } = req.body;
-    const loan = new Loan({
+    const loan = new Loans({
       user_id: req.user._id,
-      loan_amount,
-      loan_terms,
+      amount,
+      terms,
       repayments: [],
       remainingAmount: amount,
     });
@@ -48,10 +48,10 @@ exports.createLoan = async (req, res) => {
 
 exports.updateLoan = async (req, res) => {
   try {
-    console.log(req.user.user_type);
-    if (req.user.user_type !== "admin") throw "you are not authorized";
+    console.log(req.user.role);
+    if (req.user.role !== "admin") throw "you are not authorized";
     const { id, status } = req.body;
-    const loan = await Loan.findByIdAndUpdate(id, { status });
+    const loan = await Loans.findByIdAndUpdate(id, { status });
     loan.status = status;
     return res.status(200).json({ msg: "Status updated!", loan });
   } catch (error) {
@@ -63,13 +63,13 @@ exports.updateLoan = async (req, res) => {
 exports.repayLoan = async (req, res) => {
   try {
     const { loanId, installmentId } = req.body;
-    const loan = await Loan.findById(loanId);
+    const loan = await Loans.findById(loanId);
     const installmentAmount = loan.repayments[0].amount;
     loan.repayments.filter((installment) => {
       if (installment._id == installmentId) installment.status = "paid";
     });
     loan.remainingAmount -= installmentAmount;
-    await Loan.findByIdAndUpdate(loanId, loan);
+    await Loans.findByIdAndUpdate(loanId, loan);
     return res.status(200).json({ msg: "Installment paid" });
   } catch (error) {
     console.error(error);

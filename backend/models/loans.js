@@ -7,11 +7,11 @@ const loanSchema = new mongoose.Schema(
         require: true,
         ref: "Auth",
       },
-    loan_amount: {
+    amount: {
       type: Number,
       require: true,
     },
-    loan_terms: {
+    terms: {
       type: Number,
       require: true,
     },
@@ -39,6 +39,6 @@ const loanSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Loan = mongoose.model("Loan", loanSchema);
+const Loans = mongoose.model("Loans", loanSchema);
 
-modules.export = Loan;
+module.exports = Loans;

@@ -1,4 +1,4 @@
-const User = require("../models/user.js");
+const Auth = require("../models/auth.js");
 const bcrypt = require("bcrypt");
 const { createToken } = require("../util/verify");
 
@@ -9,7 +9,7 @@ exports.login = async (req, res) => {
       throw "incomplete details";
     }
 
-    const user = await User.findOne({ email });
+    const user = await Auth.findOne({ email });
 
     if (!user) {
       throw "No such user found!";
@@ -33,10 +33,10 @@ exports.signup = async (req, res) => {
   try {
     const { name, email, password } = req.body;
     if (!name || !email || !password) throw "Incomplete details";
-    const existingUser = await User.findOne({ email });
+    const existingUser = await Auth.findOne({ email });
     if (existingUser) throw "Account already exists!/nPlease Login!!!";
     const hashedPass = await bcrypt.hash(password, 5);
-    const user = await User.create({ email, password: hashedPass, name });
+    const user = await Auth.create({ email, password: hashedPass, name });
     delete user.password;
     const token = createToken(user);
     return res
@@ -48,6 +48,6 @@ exports.signup = async (req, res) => {
   }
 };
 
-export const verifyUser = async (req, res) => {
+exports.verifyUser = async (req, res) => {
   return res.status(200).json({user:req.user})
 }

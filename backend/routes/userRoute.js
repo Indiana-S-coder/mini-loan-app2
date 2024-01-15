@@ -7,4 +7,4 @@ router.post('/login', login)
 router.post('/signup', signup)
 router.get('/', verifyLogin, verifyUser)
 
-modules.export = router;
+module.exports = router;
