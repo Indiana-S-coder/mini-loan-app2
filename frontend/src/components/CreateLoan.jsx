@@ -13,7 +13,7 @@ const CreateLoan = () => {
       e.preventDefault();
       if (!amount || !term) throw "Fill all details!";
       await axios.post(
-        "http://localhost:4000/api/v1/loans/create",
+        "https://mini-loan-app2.vercel.app/api/v1/loans/create",
         { amount:amount, terms: term },
         {
           headers: {

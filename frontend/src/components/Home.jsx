@@ -14,7 +14,7 @@ const Home = () => {
 
     try {
       const loanData = await axios.get(
-        "http://localhost:4000/api/v1/loans",
+        "https://mini-loan-app2.vercel.app/api/v1/loans",
         {
           headers: {
             "Content-Type": "application/json",
@@ -33,7 +33,7 @@ const Home = () => {
   const updateStatus = async (id, status) => {
     try {
       await axios.patch(
-        `http://localhost:4000/api/v1/loans/update-status/`,
+        `https://mini-loan-app2.vercel.app/api/v1/loans/update-status/`,
         { id, status },
         {
           headers: {
@@ -54,7 +54,7 @@ const Home = () => {
   const updatePayment = async (loanId, installmentId) => {
     try {
       await axios.patch(
-        `http://localhost:4000/api/v1/loans/repay/`,
+        `https://mini-loan-app2.vercel.app/api/v1/loans/repay/`,
         { loanId, installmentId },
         {
           headers: {

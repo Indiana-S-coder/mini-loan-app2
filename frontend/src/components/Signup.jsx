@@ -19,7 +19,7 @@ const Signup = () => {
       e.preventDefault();
       if (!email || !password) throw "Please fill all fields!";
       const user = await axios.post(
-        "http://localhost:4000/api/v1/auth/signup",
+        "https://mini-loan-app2.vercel.app/api/v1/auth/signup",
         {
           email,
           password,
