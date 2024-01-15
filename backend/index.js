@@ -20,16 +20,15 @@ mongoose
   .then(() => console.log("Connected to database"))
   .catch((err) => console.error(err));
 
-  app.get('*',(req,res,next)=>{
-    res.status(200).json({
-      message:'bad request'
-    })
-  })
-  
-
 // middlwares
 app.use("/api/v1/auth", userRoute);
 app.use("/api/v1/loans", loanRoute);
+
+app.get('*',(req,res,next)=>{
+  res.status(200).json({
+    message:'bad request'
+  })
+})
 
 app.listen(PORT, () => {
   console.log(`App is listening to port ${PORT}`);
