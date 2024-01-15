@@ -106,39 +106,39 @@ const Home = () => {
 
       {loans && loans.length ? (
         <>
-          <table className="min-w-full bg-white border border-gray-300 mt-4">
-            <thead>
-              <tr>
-                {user.role === "admin" && <th>User Id</th>}
-                {user.role === "admin" && <th>Name</th>}
-                {user.role === "admin" && <th>Email</th>}
-                <th>Amount</th>
-                <th>Terms</th>
-                <th>Status</th>
-                <th>Created Date</th>
-                <th>Actions</th>
+          <table className="min-w-full bg-white border border-gray-300 mt-4 ">
+            <thead className="border-2">
+              <tr className="">
+                {user.role === "admin" && <th className="border-x-2">User Id</th>}
+                {user.role === "admin" && <th className="border-x-2">Name</th>}
+                {user.role === "admin" && <th className="border-x-2">Email</th>}
+                <th className="border-x-2">Amount</th>
+                <th className="border-x-2">Terms</th>
+                <th className="border-x-2">Status</th>
+                <th className="border-x-2">Created Date</th>
+                <th className="border-x-2">Actions</th>
               </tr>
             </thead>
             <tbody>
               {loans.map((loan) => (
                 <React.Fragment key={loan._id}>
-                  <tr >
-                    {user.role === "admin" && <td>{loan.user_id && loan.user_id._id}</td>}
-                    {user.role === "admin" && <td>{loan.user_id && loan.user_id.name}</td>}
+                  <tr className="border-x-2">
+                    {user.role === "admin" && <td className="border-2">{loan.user_id && loan.user_id._id}</td>}
+                    {user.role === "admin" && <td className="border-2">{loan.user_id && loan.user_id.name}</td>}
                     {user.role === "admin" && (
-                      <td>{loan.user_id && loan.user_id.email}</td>
+                      <td className="border-2">{loan.user_id && loan.user_id.email}</td>
                     )}
-                    <td>{loan.amount}</td>
-                    <td>{loan.terms}</td>
-                    <td>{loan.status}</td>
-                    <td>{loan.createdAt && loan.createdAt.slice(0, 10)}</td>
-                    <td>
+                    <td className="border-2">{loan.amount}</td>
+                    <td className="border-2">{loan.terms}</td>
+                    <td className="border-2">{loan.status}</td>
+                    <td className="border-2">{loan.createdAt && loan.createdAt.slice(0, 10)}</td>
+                    <td className="border-2">
                       {user &&
                       user.role === "admin" &&
                       loan.status === "pending" ? (
                         <>
                           <button
-                            className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
+                            className="bg-green-500 text-white px-4 py-2 rounded mr-2"
                             onClick={() => updateStatus(loan._id, "accepted")}
                           >
                             Accept
@@ -170,25 +170,27 @@ const Home = () => {
                     </td>
                   </tr>
                   {showDetails === loan._id && (
-                    <>
-                      
-                      <h2>Total Amount:{loan.amount}</h2>
-                      <h2>Remaining Amount:{loan.remainingAmount}</h2>
-                      <table>
+                    <div className="">
+                      <div className="flex  flex-col justify-around items-center mt-2">
+                      <h2 className="font-semibold">Total Amount:{loan.amount}</h2>
+                      <h2 className="font-semibold">Remaining Amount:{loan.remainingAmount}</h2>
+                      </div> 
+                      <div>
+                      <table className="min-w-full bg-white border border-gray-300 mt-2">
                         {loan.repayments && (
                           <>
                             <tr>
-                              <th>Amount</th>
-                              <th>Due</th>
-                              <th>Status</th>
-                              <th>Action</th>
+                              <th className="border-2">Amount</th>
+                              <th className="border-2">Due</th>
+                              <th className="border-2">Status</th>
+                              <th className="border-2">Action</th>
                             </tr>
                             {loan.repayments && loan.repayments.map((repay) => (
                               <tr key={repay._id}>
-                                <td>{repay.amount}</td>
-                                <td>{repay.date.slice(0, 15)}</td>
-                                <td>{repay.status}</td>
-                                <td>
+                                <td className="border-2">{repay.amount}</td>
+                                <td className="border-2">{repay.date.slice(0, 15)}</td>
+                                <td className="border-2">{repay.status}</td>
+                                <td className="border-2">
                                   {repay.status === "pending" ? (
                                     <button
                                       disabled={loan.status !== "accepted"}
@@ -207,7 +209,8 @@ const Home = () => {
                           </>
                         )}
                       </table>
-                    </>
+                      </div>
+                    </div>
                   )}
                 </React.Fragment>
               ))}
@@ -218,7 +221,7 @@ const Home = () => {
         <p>No loans found!</p>
       )}
       <br />
-      <a href="/createLoan" className="text-blue-500">
+      <a href="/createLoan" className="text-red-500">
         Create New Loan +
       </a>
     </div>
