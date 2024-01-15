@@ -3,7 +3,7 @@ const Loans = require("../models/loans.js");
 exports.getLoans = async (req, res) => {
   try {
     let loans;
-    if (req.user.user_type === "admin") {
+    if (req.user.role === "admin") {
       loans = await Loans.find().populate("user_id");
     } else {
       loans = await Loans.find({ user_id: req.user._id });

@@ -10,7 +10,7 @@ exports.createToken = (payload) => {
 
 exports.verifyLogin = async (req, res, next) => {
   try {
-    const token = req.headers.bearertoken;
+    const token = req.headers.authorization && req.headers.authorization.split(" ")[1];
     console.log(token);
     const decoded = jwt.verify(token, secretKey);
     req.user = decoded;

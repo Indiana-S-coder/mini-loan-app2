@@ -26,7 +26,7 @@ function App() {
         {
           headers: {
             "Content-Type": "application/json",
-            bearertoken: token,
+            Authorization: `Bearer ${token}`,
           },
         }
       );

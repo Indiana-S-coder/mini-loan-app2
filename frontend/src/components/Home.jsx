@@ -10,13 +10,15 @@ const Home = () => {
   const navigate = useNavigate();
 
   const fetchLoans = async () => {
+    console.log("Fetching loans..."); 
+
     try {
       const loanData = await axios.get(
         "http://localhost:4000/api/v1/loans",
         {
           headers: {
             "Content-Type": "application/json",
-            bearertoken: token,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -36,7 +38,7 @@ const Home = () => {
         {
           headers: {
             "Content-Type": "application/json",
-            bearertoken: token,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -57,7 +59,7 @@ const Home = () => {
         {
           headers: {
             "Content-Type": "application/json",
-            bearertoken: token,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -121,15 +123,15 @@ const Home = () => {
               {loans.map((loan) => (
                 <React.Fragment key={loan._id}>
                   <tr >
-                    {user.role === "admin" && <td>{loan.user_id}</td>}
-                    {user.role === "admin" && <td>{loan.user_id.name}</td>}
+                    {user.role === "admin" && <td>{loan.user_id && loan.user_id._id}</td>}
+                    {user.role === "admin" && <td>{loan.user_id && loan.user_id.name}</td>}
                     {user.role === "admin" && (
-                      <td>{loan.user_id.email}</td>
+                      <td>{loan.user_id && loan.user_id.email}</td>
                     )}
                     <td>{loan.amount}</td>
                     <td>{loan.terms}</td>
                     <td>{loan.status}</td>
-                    <td>{loan.createdAt.slice(0, 10)}</td>
+                    <td>{loan.createdAt && loan.createdAt.slice(0, 10)}</td>
                     <td>
                       {user &&
                       user.role === "admin" &&

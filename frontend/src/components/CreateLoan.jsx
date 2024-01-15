@@ -18,7 +18,7 @@ const CreateLoan = () => {
         {
           headers: {
             "Content-Type": "application/json",
-            bearertoken: token,
+            Authorization: `Bearer ${token}`,
           },
         }
       );

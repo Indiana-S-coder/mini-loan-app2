@@ -30,8 +30,8 @@ const Login = () => {
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <div className="bg-white p-8 rounded shadow-md w-full md:w-96">
-        <h2 className="text-2xl font-bold mb-4">Login</h2>
+      <div className="bg-slate-300 p-8 rounded-lg shadow-md w-full md:w-96">
+        <h2 className="text-2xl font-bold mb-4 text-slate-500">Login</h2>
         <form className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-600">
