@@ -34,10 +34,11 @@ install packages on both frontend and backend
 `npm i`
 
 Create .env file in backend folder and declare the following environment variables
+```
 MONGO_URL: "mongodb url to connect to database"
 TOKEN_KEY: "you can create it using crypto or enter some random large string "
 PORT: "4000 or other"
-
+```
 Run `npm run dev` in frontend then run `npm run dev` in backend
 
 your app will run on `http://localhost:5173/`
