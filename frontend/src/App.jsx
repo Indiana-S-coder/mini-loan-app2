@@ -65,7 +65,7 @@ function App() {
       element: <UnProtectedRoutes component={<Signup />} />,
     },
     {
-      path: "/create",
+      path: "/createLoan",
       element: <ProtectedRoutes component={<CreateLoan />} />,
     },
   ]);
