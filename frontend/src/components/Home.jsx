@@ -221,7 +221,7 @@ const Home = () => {
         <p>No loans found!</p>
       )}
       <br />
-      <a href="/create" className="text-red-500">
+      <a href="/createLoan" className="text-red-500">
         Create New Loan +
       </a>
     </div>
