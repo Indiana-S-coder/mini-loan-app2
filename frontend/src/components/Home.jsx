@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../App";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [loans, setLoans] = useState([]);
@@ -221,9 +221,9 @@ const Home = () => {
         <p>No loans found!</p>
       )}
       <br />
-      <a href="/createLoan" className="text-red-500">
+      <Link to="/createLoan" className="text-red-500">
         Create New Loan +
-      </a>
+      </Link>
     </div>
   );
 };

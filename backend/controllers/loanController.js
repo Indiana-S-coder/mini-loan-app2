@@ -20,6 +20,7 @@ exports.getLoans = async (req, res) => {
 exports.createLoan = async (req, res) => {
   try {
     const { amount, terms } = req.body;
+    console.log(req.user);
     const loan = new Loans({
       user_id: req.user._id,
       amount,
