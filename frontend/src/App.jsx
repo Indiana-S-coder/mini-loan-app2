@@ -14,10 +14,6 @@ function App() {
   const [user, setUser] = useState();
   const [token, setToken] = useState();
 
-  const navigate = (path) => {
-    window.location.pathname = path;
-  };
-
   const fetchUser = async (token) => {
     try {
       console.log(token);
